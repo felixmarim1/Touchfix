@@ -1,177 +1,158 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <title>Contactformulier</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        body {
-            font-family: 'Helvetica Neue', sans-serif;
-            background: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+  <meta charset="UTF-8">
+  <title>Contactformulier</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
 
-        .form-container {
-            background: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px; /* Iets breder gemaakt voor de textarea */
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeSlideIn 0.6s ease-out forwards;
-        }
+    .form-container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 360px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeSlideIn 0.6s ease-out forwards;
+    }
 
-        @keyframes fadeSlideIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    @keyframes fadeSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        h2 {
-            font-size: 24px;
-            margin-bottom: 24px;
-            text-align: center;
-        }
+    h2 {
+      font-size: 24px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
 
-        .form-group { /* Nieuwe container voor labels en inputs */
-            margin-bottom: 16px;
-        }
+    label {
+      font-size: 14px;
+      margin-bottom: 6px;
+      display: block;
+    }
 
-        label {
-            font-size: 14px;
-            margin-bottom: 6px;
-            display: block;
-            text-align: left; /* Labels links uitlijnen */
-        }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        input, select, textarea { /* Ook textarea toegevoegd */
-            width: calc(100% - 0px); /* Houdt rekening met de border */
-            padding: 10px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            display: block; /* Zorgt ervoor dat inputs onder de labels komen */
-        }
+    input:focus, select:focus {
+      border-color: #2196F3;
+      box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+      outline: none;
+    }
 
-        input:focus, select:focus, textarea:focus {
-            border-color: #2196F3;
-            box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
-            outline: none;
-        }
+    #contactInputGroup {
+      display: none;
+      opacity: 0;
+      animation: fadeIn 0.3s ease forwards;
+    }
 
-        #contactInputGroup {
-            display: none;
-            opacity: 0;
-            animation: fadeIn 0.3s ease forwards;
-        }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      color: white;
+      background-color: #2196F3;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    }
 
-        button {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            color: white;
-            background-color: #2196F3;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
-        }
-
-        button:hover {
-            background-color: #F5A623;
-            transform: scale(1.03);
-        }
-
-        textarea { /* Stijlen specifiek voor de textarea */
-            resize: vertical; /* Sta verticale resizing toe */
-            min-height: 100px;
-        }
-    </style>
+    button:hover {
+      background-color: #F5A623;
+      transform: scale(1.03);
+    }
+  </style>
 </head>
 <body>
 
-    <div class="form-container">
-        <h2>Neem contact met ons op</h2>
-        <form action="https://formspree.io/f/mkgrypjw" method="POST" id="contactForm">
-            <div class="form-group">
-                <label for="naam">Naam</label>
-                <input type="text" id="naam" name="naam" required>
-            </div>
+  <div class="form-container">
+    <h2>Neem contact met ons op</h2>
+    <form action="https://formspree.io/f/mkgrypjw" method="POST" id="contactForm">
+      <label for="naam">Naam</label>
+      <input type="text" id="naam" name="naam" required>
 
-            <div class="form-group">
-                <label for="keuze">Contactvoorkeur</label>
-                <select id="keuze" name="voorkeur" required>
-                    <option value="">-- Maak een keuze --</option>
-                    <option value="email">E-mail</option>
-                    <option value="telefoon">Telefoon</option>
-                </select>
-            </div>
+      <label for="keuze">Contactvoorkeur</label>
+      <select id="keuze" name="voorkeur" required>
+        <option value="">-- Maak een keuze --</option>
+        <option value="email">E-mail</option>
+        <option value="telefoon">Telefoon</option>
+      </select>
 
-            <div id="contactInputGroup" class="form-group">
-                <label id="contactLabel" for="contactInput"></label>
-                <input id="contactInput" name="contactgegevens">
-            </div>
+      <div id="contactInputGroup">
+        <label id="contactLabel" for="contactInput"></label>
+        <input id="contactInput" name="contactgegevens">
+      </div>
 
-            <div class="form-group">
-                <label for="bericht">Bericht</label>
-                <textarea id="bericht" name="bericht"></textarea>
-            </div>
+      <!-- Anti-spam honeypot -->
+      <input type="text" name="_gotcha" style="display:none">
 
-            <input type="text" name="_gotcha" style="display:none">
+      <!-- Optional: Success message redirect -->
+      <input type="hidden" name="_next" value="https://jouwsite.nl/bedankt.html">
 
-            <input type="hidden" name="_next" value="https://jouwsite.nl/bedankt.html">
+      <button type="submit">Verzenden</button>
+    </form>
+  </div>
 
-            <button type="submit">Verzenden</button>
-        </form>
-    </div>
+  <script>
+    $('#keuze').on('change', function () {
+      const keuze = $(this).val();
+      const $group = $('#contactInputGroup');
+      const $label = $('#contactLabel');
+      const $input = $('#contactInput');
 
-    <script>
-        $(document).ready(function () { // Zorg ervoor dat de code pas wordt uitgevoerd als het DOM geladen is
-            $('#keuze').on('change', function () {
-                const keuze = $(this).val();
-                const $group = $('#contactInputGroup');
-                const $label = $('#contactLabel');
-                const $input = $('#contactInput');
+      if (keuze === 'email') {
+        $label.text('E-mailadres');
+        $input.attr({ type: 'email', placeholder: 'bijv. naam@example.com' });
+        $input.prop('required', true);
+        $group.hide().css('opacity', 0).fadeIn(200);
+      } else if (keuze === 'telefoon') {
+        $label.text('Telefoonnummer');
+        $input.attr({ type: 'tel', placeholder: 'bijv. 0612345678' });
+        $input.prop('required', true);
+        $group.hide().css('opacity', 0).fadeIn(200);
+      } else {
+        $group.fadeOut(150, () => {
+          $input.val('').prop('required', false);
+        });
+      }
+    });
 
-                if (keuze === 'email') {
-                    $label.text('E-mailadres');
-                    $input.attr({ type: 'email', placeholder: 'bijv. naam@example.com' });
-                    $input.prop('required', true);
-                    $group.hide().css('opacity', 0).fadeIn(200);
-                } else if (keuze === 'telefoon') {
-                    $label.text('Telefoonnummer');
-                    $input.attr({ type: 'tel', placeholder: 'bijv. 0612345678' });
-                    $input.prop('required', true);
-                    $group.hide().css('opacity', 0).fadeIn(200);
-                } else {
-                    $group.fadeOut(150, () => {
-                        $input.val('').prop('required', false);
-                    });
-                }
-            });
-
-            // Optional client-side validation message
-            $('#contactForm').on('submit', function (e) {
-                if (!this.checkValidity()) {
-                    e.preventDefault();
-                    alert('Vul alle verplichte velden correct in.');
-                }
-            });
-        });
-    </script>
+    // Optional client-side validation message
+    $('#contactForm').on('submit', function (e) {
+      if (!this.checkValidity()) {
+        e.preventDefault();
+        alert('Vul alle verplichte velden correct in.');
+      }
+    });
+  </script>
 
 </body>
 </html>
