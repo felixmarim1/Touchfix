@@ -42,6 +42,7 @@
       border: 1px solid #ccc;
       border-radius: 8px;
       font-size: 1rem;
+      height: 2.25rem; /* Hoogte expliciet ingesteld */
     }
 
     button {
@@ -115,13 +116,3 @@
         input.prop('required', true);
         $('#message').prop('required', true);
       } else {
-        $('#contact-input').addClass('hidden');
-        $('#message-input').addClass('hidden');
-        input.prop('required', false);
-        $('#message').prop('required', false);
-      }
-    });
-  </script>
-
-</body>
-</html>
